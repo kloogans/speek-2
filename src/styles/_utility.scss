@@ -20,3 +20,25 @@ $base-font-family: sans-serif;
     min-height: 100%;
   }
 }
+
+@mixin linearGrad($colorBegin, $colorEnd) {
+  background:
+    linear-gradient(
+      135deg,
+      $colorBegin 0%,
+      $colorEnd 100%
+    );
+}
+
+// Displays
+@mixin flex ($direction, $justify, $alignItems) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $alignItems;
+}
+
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}

@@ -1,13 +1,435 @@
 @import 'utility';
+@import url('https://fonts.googleapis.com/css?family=Cabin|Open+Sans|Knewave');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 $base-text-size: 16px;
-$base-font-family: sans-serif;
+$mainFont: 'Cabin';
+$secondaryFont: 'Open Sans';
+$header-font: 'Knewave';
+$primaryWhite: #eadeda;
+$primaryBlack: #333;
+$darkPurple: #2e294e;
+$yellow: #ffd400;
+$pink: #d90368;
+$blue: rgb(91, 180, 245);
 
 html {
-  @include full-height;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  font: $base-text-size / 1 $base-font-family;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  @include flex(column, space-around, center);
+
+  background-color: $primaryWhite;
+  min-height: 100vh;
+
+  h1 {
+    font-family: $mainFont;
+    color: $primaryBlack;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+p {
+  color: $primaryWhite;
+  font-family: $secondaryFont;
+}
+
+.logout {
+  @include flex(row, flex-end, flex-start);
+
+  width: 100%;
+}
+
+header {
+  @include flex(row, center, center);
+
+  width: 100%;
+}
+
+main {
+  @include flex(column, center, center);
+
+  flex: 1;
+
+  .Home {
+    @include flex(column, space-around, center);
+    @include size(100vw, 100%);
+
+    min-height: 100vh;
+    background:
+      url('https://static.pexels.com/photos/132967/pexels-photo-132967.jpeg'),
+      linear-gradient(
+        135deg,
+        $blue 0%,
+        $pink 100%
+      );
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: screen;
+
+    h1 {
+      text-align: center;
+      font-size: 10vw;
+      font-family: $header-font;
+      color: $pink;
+      text-transform: uppercase;
+
+      @media (max-width: 720px) {
+        font-size: 15vw;
+      }
+    }
+
+    .login-options {
+      @include flex(column, center, center);
+
+      flex: 1;
+
+      p {
+        background-color: transparentize($primaryWhite, 0.8);
+        color: $primaryBlack;
+        font-family: $mainFont;
+        padding: 0.25em 0.8em;
+        border-radius: 2px;
+      }
+    }
+
+    button.loginButton {
+      width: 50vw;
+      height: 40px;
+      font-size: 1.4em;
+      background-color: #3b5998;
+      color: $primaryWhite;
+      border: 0;
+      transition: all 0.3s ease-in;
+      cursor: pointer;
+
+      &:focus,
+      &:hover {
+        background-color: darken(#3b5998, 10%);
+      }
+    }
+  }
+}
+
+footer {
+  font-size: 0.7em;
+  height: 2em;
+}
+
+// Chat
+.Chat {
+  @include flex(column, center, center);
+
+  .hidden {
+    display: none;
+  }
+}
+
+.chatContainer {
+  @include flex(column, flex-start, flex-start);
+
+  position: relative;
+  width: 95vw;
+  height: 90vh;
+  background-color: rgb(232, 232, 232);
+  border: 2px solid $primaryBlack;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  p {
+    color: $primaryBlack;
+    margin: 0;
+  }
+}
+
+.likes {
+  margin-left: -1.5em;
+}
+
+@media (max-width: 720px) {
+  .chatContainer {
+    width: 100vw;
+    height: 100vh;
+    flex: 1;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+.clearMessages {
+  @include flex(row, flex-end, flex-start);
+
+  width: 100%;
+
+  button {
+    background-color: $darkPurple;
+    border: none;
+    color: $primaryWhite;
+    padding: 10px 30px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    z-index: 5;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $pink;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .clearMessages > button {
+    border-top-right-radius: 0;
+  }
+}
+
+.mainContainer {
+  @include size(100%, 100%);
+
+  min-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  .chatItem {
+    // @include flex(row, center, center);
+    @include flex(row, space-around, center);
+
+    width: calc(100% - 0.5em);
+    margin: 0.8em 0;
+
+    .likes {
+      padding-right: 0.5em;
+    }
+  }
+
+  .chatTextBox {
+    min-height: 100%;
+
+    @media (max-width: 720px) {
+      margin-bottom: 60px;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .chatText {
+    width: 100%;
+    padding: 0 0.5em;
+    margin: 0 1em;
+    word-break: break-all;
+    white-space: normal;
+    animation: fadeIn 0.7s ease;
+  }
+
+  .userBar {
+    @include flex(row, flex-start, center);
+  }
+
+  .user {
+    color: $pink;
+    font-family: $mainFont;
+  }
+
+  .user--bot {
+    @extend .user;
+
+    color: rgb(31, 68, 255);
+  }
+
+  .timestamp {
+    align-self: center;
+    color: lighten($primaryBlack, 40%);
+    font-family: $mainFont;
+    font-size: 0.8em;
+    padding-left: 1em;
+  }
+
+  .message {
+    font-family: $secondaryFont;
+    color: $primaryBlack;
+  }
+}
+
+@media (max-width: 720px) {
+  .mainContainer {
+    @include size(100%, 100%);
+
+    min-height: 100vh;
+  }
+}
+
+form.chatform {
+  @include flex(row, center, center);
+
+  width: 100%;
+}
+
+button.chatSubmit {
+  height: 52px;
+  width: 70px;
+  border: 0;
+  background-color: lighten($primaryWhite, 20%);
+  color: $primaryBlack;
+  font-size: 1.1em;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+
+  &:focus {
+    outline: 0;
+    color: $pink;
+  }
+
+  &:hover {
+    color: $pink;
+  }
+}
+
+.inputContainer {
+  width: calc(95vw - 1px);
+  height: 50px;
+}
+
+input.inputBox {
+  @include size(100%, 50px);
+
+  background-color: lighten($primaryWhite, 20%);
+  color: $primaryBlack;
+  font-size: 30px;
+  padding-left: 1.5em;
+  border: none;
+  border-bottom-left-radius: 5px;
+  resize: none;
+
+  &::-webkit-input-placeholder {
+    color: rgba(255, 212, 0, 0.3);
+    font-size: 40px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+form.usernameSubmit {
+  @include flex(column, center, center);
+}
+
+input.userName {
+  @include size(40vw, 50px);
+
+  background-color: transparent;
+  color: lighten($primaryWhite, 10%);
+  font-size: 50px;
+  line-height: 50px;
+  border: none;
+  border-bottom: 2px dashed $yellow;
+  resize: none;
+  transition: all 0.5s ease-out;
+
+  &::-webkit-input-placeholder {
+    color: rgba(247, 247, 247, 0.8);
+    font-size: 40px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button.submitMobile {
+  @include size(50vw, 79px);
+
+  margin-top: 30px;
+  background-color: rgb(100, 179, 237);
+  border: 2px solid $primaryWhite;
+  color: $primaryWhite;
+  cursor: pointer;
+  transform: rotate(1deg);
+  transition: all 0.2s ease-out;
+
+  &:focus {
+    outline: 0;
+    background-color: lighten($darkPurple, 20%);
+  }
+
+  &:hover,
+  &:active {
+    background-color: rgb(173, 100, 237);
+
+    .banana {
+      animation: spin 2s linear infinite;
+    }
+
+    .banana::after {
+      margin-left: 1em;
+      content: 'LET THE BODIES HIT THE FLOOR';
+      color: $primaryWhite;
+      font-size: 2em;
+      font-weight: bold;
+    }
+  }
+}
+
+button > .banana {
+  background-image: url('http://imgur.com/kqpBgfN.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin: auto;
+  width: 75px;
+  height: 75px;
+  text-transform: uppercase;
+  transform: rotate(23deg);
+  transition: all 0.5s ease;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 720px) {
+  input.userName {
+    width: 80vw;
+  }
+
+  button.submitMobile {
+    visibility: visible;
+  }
+
+  .inputContainer {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  input.inputBox {
+    border-radius: 0;
+  }
 }
