@@ -8,6 +8,7 @@ import Bot from './Bot'
 import Message from './Message'
 import botListener from '../utils/bot'
 import auth from '../utils/auth'
+import moment from 'frozen-moment'
 
 @observer
 class Chat extends Component {
@@ -15,9 +16,11 @@ class Chat extends Component {
   _submit = (e) => {
     e.preventDefault()
     const message = this.refs.message.value
-    if (message.length > 1) {
-      store.addMessage(message)
-      botListener(message)
+    if (message.length > 0) {
+      store.time = moment().format('LLLL')
+      store.username = store.calledBot ? 'SpeekBot' : store.username
+      store.addMessage(message, store.time)
+      botListener(message, store.time)
     }
     this.refs.message.value = ''
   }
@@ -65,12 +68,13 @@ class Chat extends Component {
           </div>
           <div className='mainContainer' ref='chatbox'>
             <div className='chatTextBox'>
-              {_.map(store.messages, ({ username, text, bot, message, time }, key) =>
-                <div className='chatMessage'>
-                  <Message remove={this.delete} username={username} text={text} />
-                  <Bot bot={bot} message={message} />
+              {_.map(store.messages, ({ username, message, text, time }, key) => {
+                return <div className='chatMessage' key={key}>
+                  {/* <Bot message={message} time={time} /> */}
+                  <Message remove={this.delete} username={username} text={text} time={time} />
                 </div>
-              )}
+                // console.log(bot + message)
+              })}
             </div>
           </div>
         </div>

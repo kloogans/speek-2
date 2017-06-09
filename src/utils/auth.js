@@ -2,7 +2,7 @@
 import Auth0Lock from 'auth0-lock'
 import IdTokenVerifier from 'idtoken-verifier'
 import { observable, autorun, computed, action } from 'mobx'
-// import store from './store'
+import store from '../store'
 
 const CLIENT_ID = 'XYucNn2VgOLpXqeoANYQof3uVRxWaOnF'
 const CLIENT_DOMAIN = 'bgarage.auth0.com'
@@ -35,8 +35,8 @@ class Auth {
 
     autorun(() => {
       this.checkExpiration()
-      // this.createProfile()
       if (this.isSignedIn) {
+        this.createProfile()
         window.localStorage.setItem('auth:token', this.token)
         window.localStorage.setItem('auth:profile', JSON.stringify(this.profile))
       } else {
@@ -44,6 +44,13 @@ class Auth {
         window.localStorage.removeItem('auth:profile')
       }
     })
+  }
+
+  createProfile () {
+    this.username = this.facebookName
+    window.localStorage.setItem('username', `${this.facebookName}`)
+    store.announceUser(`@${this.facebookName} has entered`)
+    console.log(`@${this.facebookName} has entered`)
   }
 
   checkExpiration () {

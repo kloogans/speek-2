@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
-// import moment from 'moment'
-// import store from '../store'
 class Bot extends Component {
   render () {
-    return <div className='chatItem' key={this.props.key}>
+    return <div className='chatItem'>
       <div className='chatText'>
         <div className='userBar'>
-          <div className='user--bot'>{this.props.bot}</div>
-          {/* <div className='timestamp'>{moment().fromNow()}</div> */}
+          <div className='user--bot'>SpeekBot</div>
         </div>
         <div className='message'> <em>{this.props.message}</em></div>
       </div>

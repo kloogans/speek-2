@@ -55,11 +55,13 @@ const botListener = (message) => {
       }, 1000)
       break
     case message === question[6].toLowerCase().replace(/[^\w\s]/gi, ''):
+      this.calledBot = true
       setTimeout(() => {
         bitcoinPrice()
         console.log(store.bitcoinData)
         store.announceUser(`The current Bitcoin price is $${store.bitcoinData}`)
       }, 1000)
+      this.calledBot = false
       break
     case message === question[7].toLowerCase().replace(/[^\w\s]/gi, ''):
       setTimeout(() => {

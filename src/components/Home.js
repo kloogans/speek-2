@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Footer from './Footer'
 import store from '../store'
 import auth from '../utils/auth'
 import { observer } from 'mobx-react'
@@ -21,10 +22,10 @@ class Home extends Component {
   }
   _click = () => {
     auth.signIn()
-    store.username = auth.facebookName
-    window.localStorage.setItem('username', `${store.username}`)
-    store.announceUser(`@${store.username} has entered`)
-    console.log(`@${store.username} has entered`)
+    // store.username = auth.facebookName
+    // window.localStorage.setItem('username', `${store.username}`)
+    // store.announceUser(`@${store.username} has entered`)
+    // console.log(`@${store.username} has entered`)
   }
   render () {
     if (auth.isSignedIn) {
@@ -33,12 +34,13 @@ class Home extends Component {
     return <div className='Home'>
       <h1>Speek</h1>
       <div className='login-options'>
-        <button className='loginButton' onClick={this._click}><i className='fa fa-facebook' /></button>
-        <p>or</p>
+        {/* <button className='loginButton' onClick={this._click}><i className='fa fa-facebook' /></button>
+        <p>or</p> */}
         <form className='usernameSubmit' onSubmit={this._submit}>
           <input className='userName' ref='username' placeholder='Username' />
         </form>
       </div>
+      <Footer />
     </div>
   }
 }

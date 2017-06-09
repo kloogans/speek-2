@@ -1,5 +1,6 @@
 import { observable } from 'mobx'
 import db from './db'
+import moment from 'frozen-moment'
 
 // const WEATHER_API = '1cb1cacbf2aa4382fa6f3ce0c019a679'
 
@@ -7,17 +8,22 @@ class Store {
   @observable username = window.localStorage.getItem('username')
   @observable messages = {}
   @observable announcements = {}
+  @observable calledBot = false
   @observable bitcoinData = 0
   @observable etherData = 0
   @observable ltcData = 0
+  @observable time
 
   load () {
     db.ref('messages').on('value', (snapshot) => {
-      this.messages = snapshot.val()
+      const data = snapshot.val()
+      this.messages = data
     })
-    db.ref('announcements').on('value', (snapshot) => {
-      this.announcements = snapshot.val()
-    })
+    // db.ref('announcements').on('value', (snapshot) => {
+    //   const data = snapshot.val()
+    //   this.messages = data
+    // })
+    // console.log(this.messages.userMessages)
     // Get bitcoin price
     const url = `http://api.coindesk.com/v1/bpi/currentprice.json`
     window.fetch(url)
@@ -46,11 +52,12 @@ class Store {
   }
 
   addMessage (text) {
-    db.ref('messages').push().set({ text, username: this.username })
+    db.ref('messages').push().set({ username: this.username, text, time: this.time })
   }
 
-  announceUser (message) {
-    db.ref('messages').push().set({ bot: 'SpeekBot', message })
+  announceUser (text) {
+    db.ref('messages').push().set({ username: 'SpeekBot', text })
+    this.time = moment().format('LLLL')
   }
 }
 

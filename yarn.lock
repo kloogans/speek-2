@@ -2858,6 +2858,12 @@ fresh@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
 
+frozen-moment@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/frozen-moment/-/frozen-moment-0.4.0.tgz#9635599758d6e20c0a8033c779086cd5369a1d32"
+  dependencies:
+    moment ">=2.11.2 <3"
+
 fs-extra@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-1.0.0.tgz#cd3ce5f7e7cb6145883fcae3191e9877f8587950"
@@ -4159,7 +4165,7 @@ mobx@^3.1.9:
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.1.9.tgz#ed4af9d874ff6032c7af91fc1b87d9d33122a557"
 
-moment@2.x.x, moment@^2.18.1:
+moment@2.x.x, "moment@>=2.11.2 <3", moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
