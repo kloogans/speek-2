@@ -2,6 +2,9 @@ import store from '../store'
 import moment from 'moment'
 import bitcoinPrice from './bitcoin'
 
+const temp = store.temp
+const conditions = store.conditions
+
 const question = [
   'what time is it?',
   'whats up?',
@@ -13,7 +16,8 @@ const question = [
   'ethereum price',
   'litecoin price',
   'help',
-  'bitcoin chart'
+  'bitcoin chart',
+  'weather'
 ]
 
 const answer = [
@@ -40,7 +44,11 @@ const answer = [
     <li><span class="title">@speekbot what is the meaning of life?</span> - a robot's take on philosophy</li>
   </ul>
 </div>`,
-  `<div id="chart-container"></div>`
+  `<div id="container"></div>`
+]
+
+const weather = [
+  `${temp}&deg;F`
 ]
 
 const whatsUp = [
@@ -107,6 +115,18 @@ const botListener = (message) => {
     case message === question[10].toLowerCase().replace(/[^\w\s]/gi, ''):
       setTimeout(() => {
         store.announceUser(`${answer[5]}`)
+      }, 1000)
+      break
+    case message === question[11].toLowerCase().replace(/[^\w\s]/gi, ''):
+      setTimeout(() => {
+        store.announceUser(`<div class="weather">
+        <div class="weather__temperture">
+        ${store.temp}&deg;F
+      </div>
+      <div class="weather__conditions">
+        ${store.conditions}
+      </div>
+        `)
       }, 1000)
       break
     default:

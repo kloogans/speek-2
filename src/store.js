@@ -2,7 +2,8 @@ import { observable } from 'mobx'
 import db from './db'
 import moment from 'frozen-moment'
 
-// const WEATHER_API = '1cb1cacbf2aa4382fa6f3ce0c019a679'
+const WEATHER_API = 'f350cf6e59a712d6413981e3bfb42683'
+const currentTime = moment().format('YYYY-MM-DD')
 
 class Store {
   @observable username = window.localStorage.getItem('username')
@@ -13,6 +14,9 @@ class Store {
   @observable etherData = 0
   @observable ltcData = 0
   @observable time
+  @observable weather
+  @observable temp
+  @observable conditions
 
   load () {
     db.ref('messages').on('value', (snapshot) => {
@@ -32,7 +36,7 @@ class Store {
     const currency = Object.keys(data).map((key, i) => data[key])
     this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
   })
-    const historyUrl = `http://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05`
+    const historyUrl = `http://api.coindesk.com/v1/bpi/historical/close.json?start=2017-06-01&end=${currentTime}`
     window.fetch(historyUrl)
 .then(r => r.json())
 .then(data => {
@@ -50,13 +54,16 @@ class Store {
   this.etherData = etherPrice.toFixed(2)
   this.ltcData = ltcPrice.toFixed(2)
 })
-// // Weather
-//     const weatherURL = `https://api.darksky.net/forecast`
-//     window.fetch(weatherURL)
-// .then(r => r.json())
-// .then(data => {
-//   console.log(data)
-// })
+// Weather
+    const city = 'tampa'
+    const weatherURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${WEATHER_API}&units=imperial`
+    window.fetch(weatherURL)
+.then(r => r.json())
+.then(data => {
+  console.log(data.weather[0].main)
+  this.temp = data.main.temp
+  this.conditions = data.weather[0].main
+})
   }
 
   addMessage (text) {

@@ -28,7 +28,7 @@ class Home extends Component {
     // console.log(`@${store.username} has entered`)
   }
   render () {
-    if (auth.isSignedIn) {
+    if (auth.isSignedIn || store.username.length > 0) {
       this.props.history.push('/chat')
     }
     return <div className='Home'>

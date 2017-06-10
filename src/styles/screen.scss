@@ -161,6 +161,18 @@ footer {
     }
   }
 
+  .weather {
+    @include flex(column, center, center);
+
+    width: 100%;
+    min-height: 50vh;
+
+    .weather__temperture {
+      font-size: 1.5em;
+      color: rgb(218, 115, 112);
+    }
+  }
+
   .hidden {
     display: none;
   }
