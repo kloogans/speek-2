@@ -14,7 +14,7 @@ const question = [
   'litecoin price',
   'help',
   'bitcoin chart',
-  `weather`
+  `whats the weather`
 ]
 
 const answer = [
@@ -32,7 +32,7 @@ const answer = [
     <li><span class="title">bitcoin price</span> - pulls the latest BTC price via <a href="http://coindesk.com">coindesk</a></li>
     <li><span class="title">ethereum price</span> - pulls the latest ETC price via <a href="http://poloniex.com">poloniex</a></li>
     <li><span class="title">litecoin price</span> - pulls the latest LTC price via <a href="http://poloniex.com">poloniex</a></li>
-    <li><span class="title">what is the weather?</span> - pulls the latest weather forecast (not yet available)</li>
+    <li><span class="title">whats the weather?</span> - pulls the latest weather forecast (works, under construction)</li>
   </ul>
   <ul>
     <h3>Personal queries</h3>
@@ -100,7 +100,7 @@ const botListener = (message) => {
         store.announceUser(`The current Litecoin price is $${store.ltcData}`)
       }, 1000)
       break
-    case message === question[9].toLowerCase().replace(/[^\w\s]/gi, ''):
+    case message === '--' + question[9].toLowerCase().replace(/[^\w\s]/gi, ''):
       setTimeout(() => {
         store.announceUser(`${answer[4]}`)
       }, 1000)

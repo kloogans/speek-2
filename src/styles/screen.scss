@@ -52,6 +52,7 @@ p {
 .logout {
   @include flex(row, flex-end, flex-start);
 
+  background-color: transparent;
   width: 100%;
 }
 
@@ -241,7 +242,7 @@ footer {
 
   position: relative;
   width: 95vw;
-  height: 90vh;
+  height: 80vh;
   background-color: rgb(232, 232, 232);
   border: 2px solid $primaryBlack;
   border-top-left-radius: 5px;

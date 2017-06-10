@@ -12,7 +12,8 @@ class Home extends Component {
       store.username = this.refs.username.value
       if (store.username.length > 0) {
         window.localStorage.setItem('username', `${store.username}`)
-        store.announceUser(`@${store.username} has entered`)
+        store.announceUser(`@${store.username} has entered. Type "--help"
+        for some nifty commands.`)
         this.props.history.push('/chat')
         console.log(`@${store.username} has logged in`)
       } else {
@@ -28,14 +29,14 @@ class Home extends Component {
     // console.log(`@${store.username} has entered`)
   }
   render () {
-    if (auth.isSignedIn || store.username.length > 0) {
+    if (auth.isSignedIn || store.username) {
       this.props.history.push('/chat')
     }
     return <div className='Home'>
       <h1>Speek</h1>
       <div className='login-options'>
-        <button className='loginButton' onClick={this._click}><i className='fa fa-facebook' /></button>
-        <p>or</p>
+        {/* <button className='loginButton' onClick={this._click}><i className='fa fa-facebook' /></button> */}
+        {/* <p>or</p> */}
         <form className='usernameSubmit' onSubmit={this._submit}>
           <input className='userName' ref='username' placeholder='Username' />
         </form>

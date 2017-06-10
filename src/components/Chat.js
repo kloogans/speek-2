@@ -23,7 +23,6 @@ class Chat extends Component {
     }
     this.refs.message.value = ''
   }
-
   // Delete username
   logout = () => {
     store.announceUser(`@${store.username} has left`)
