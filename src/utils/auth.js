@@ -4,8 +4,8 @@ import IdTokenVerifier from 'idtoken-verifier'
 import { observable, autorun, computed, action } from 'mobx'
 import store from '../store'
 
-const CLIENT_ID = 'XYucNn2VgOLpXqeoANYQof3uVRxWaOnF'
-const CLIENT_DOMAIN = 'bgarage.auth0.com'
+const CLIENT_ID = 'fJsToV2AnsMR6u7b4dQbV6z1zwunfM4u'
+const CLIENT_DOMAIN = 'nightpixels.auth0.com'
 
 class Auth {
   @observable token

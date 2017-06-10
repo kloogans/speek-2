@@ -10,7 +10,8 @@ const question = [
   'btc',
   'bitcoin price',
   'ethereum price',
-  'litecoin price'
+  'litecoin price',
+  'help'
 ]
 
 const answer = [
@@ -18,7 +19,25 @@ const answer = [
   'Just hanging out, chattin\'',
   '42',
   'That\'s not nice. Mind your tone.',
-  `the current price is $${store.bitcoinData}`
+  `<div class="help">
+  <img src="http://reactiongifs.me/wp-content/uploads/2014/06/it-crowd-maurice-moss-frustration-fuck-this.gif" />
+  Looks like you need some help.<br />
+  Here are commands you can use to call me:
+  <ul>
+    <h3>Informational queries</h3>
+    <li><span class="title">help</span> - a command cheatsheet</li>
+    <li><span class="title">bitcoin price</span> - pulls the latest BTC price via <a href="http://coindesk.com">coindesk</a></li>
+    <li><span class="title">ethereum price</span> - pulls the latest ETC price via <a href="http://poloniex.com">poloniex</a></li>
+    <li><span class="title">litecoin price</span> - pulls the latest LTC price via <a href="http://poloniex.com">poloniex</a></li>
+  </ul>
+  <ul>
+    <h3>Personal queries</h3>
+    <li><span class="title">@speekbot whats up?</span> - ask me what's up!</li>
+    <li><span class="title">@speekbot what time is it?</span> - returns the current time</li>
+    <li><span class="title">@speekbot what is the meaning of life?</span> - a robot's take on philosophy</li>
+    <li><span class="title">@speekbot what is the weather?</span> - pulls the latest weather forecast (not yet available)</li>
+  </ul>
+</div>`
 ]
 
 const whatsUp = [
@@ -75,6 +94,11 @@ const botListener = (message) => {
         bitcoinPrice()
         console.log(store.bitcoinData)
         store.announceUser(`The current Litecoin price is $${store.ltcData}`)
+      }, 1000)
+      break
+    case message === question[9].toLowerCase().replace(/[^\w\s]/gi, ''):
+      setTimeout(() => {
+        store.announceUser(`${answer[4]}`)
       }, 1000)
       break
     default:

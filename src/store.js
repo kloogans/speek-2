@@ -8,7 +8,6 @@ class Store {
   @observable username = window.localStorage.getItem('username')
   @observable messages = {}
   @observable announcements = {}
-  @observable calledBot = false
   @observable bitcoinData = 0
   @observable etherData = 0
   @observable ltcData = 0

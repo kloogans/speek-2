@@ -4,7 +4,6 @@ import store from '../store'
 import { observer } from 'mobx-react'
 import _ from 'lodash'
 import db from '../db'
-import Bot from './Bot'
 import Message from './Message'
 import botListener from '../utils/bot'
 import auth from '../utils/auth'
@@ -17,7 +16,7 @@ class Chat extends Component {
     e.preventDefault()
     const message = this.refs.message.value
     if (message.length > 0) {
-      store.time = moment().format('LLLL')
+      store.time = moment().format('dddd[,] h:mmA')
       store.username = store.calledBot ? 'SpeekBot' : store.username
       store.addMessage(message, store.time)
       botListener(message, store.time)
