@@ -1,17 +1,19 @@
 import store from '../store'
 import moment from 'moment'
 import bitcoinPrice from './bitcoin'
+
 const question = [
   'what time is it?',
   'whats up?',
-  'what is the meaning of life',
+  'what is the meaning of life?',
   'fuck you speekbot',
   'whats the bitcoin price',
   'btc',
   'bitcoin price',
   'ethereum price',
   'litecoin price',
-  'help'
+  'help',
+  'bitcoin chart'
 ]
 
 const answer = [
@@ -29,15 +31,16 @@ const answer = [
     <li><span class="title">bitcoin price</span> - pulls the latest BTC price via <a href="http://coindesk.com">coindesk</a></li>
     <li><span class="title">ethereum price</span> - pulls the latest ETC price via <a href="http://poloniex.com">poloniex</a></li>
     <li><span class="title">litecoin price</span> - pulls the latest LTC price via <a href="http://poloniex.com">poloniex</a></li>
+    <li><span class="title">what is the weather?</span> - pulls the latest weather forecast (not yet available)</li>
   </ul>
   <ul>
     <h3>Personal queries</h3>
     <li><span class="title">@speekbot whats up?</span> - ask me what's up!</li>
     <li><span class="title">@speekbot what time is it?</span> - returns the current time</li>
     <li><span class="title">@speekbot what is the meaning of life?</span> - a robot's take on philosophy</li>
-    <li><span class="title">@speekbot what is the weather?</span> - pulls the latest weather forecast (not yet available)</li>
   </ul>
-</div>`
+</div>`,
+  `<div id="chart-container"></div>`
 ]
 
 const whatsUp = [
@@ -63,7 +66,7 @@ const botListener = (message) => {
         store.announceUser(`${whatsUp[Math.round(Math.random() * 8)]}`)
       }, 1000)
       break
-    case message === question[2].toLowerCase().replace(/[^\w\s]/gi, ''):
+    case message === '@speekbot ' + question[2].toLowerCase().replace(/[^\w\s]/gi, ''):
       setTimeout(() => {
         store.announceUser(`${answer[2]}`)
       }, 1000)
@@ -99,6 +102,11 @@ const botListener = (message) => {
     case message === question[9].toLowerCase().replace(/[^\w\s]/gi, ''):
       setTimeout(() => {
         store.announceUser(`${answer[4]}`)
+      }, 1000)
+      break
+    case message === question[10].toLowerCase().replace(/[^\w\s]/gi, ''):
+      setTimeout(() => {
+        store.announceUser(`${answer[5]}`)
       }, 1000)
       break
     default:

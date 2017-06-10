@@ -8,6 +8,7 @@ class Store {
   @observable username = window.localStorage.getItem('username')
   @observable messages = {}
   @observable announcements = {}
+  @observable bitcoinChart
   @observable bitcoinData = 0
   @observable etherData = 0
   @observable ltcData = 0
@@ -31,6 +32,14 @@ class Store {
     const currency = Object.keys(data).map((key, i) => data[key])
     this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
   })
+    const historyUrl = `http://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05`
+    window.fetch(historyUrl)
+.then(r => r.json())
+.then(data => {
+  console.log(data.bpi)
+  // const currency = Object.keys(data).map((key, i) => data[key])
+  // this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
+})
   // Get Ethereum/Litecoin price
     const etherUrl = `https://poloniex.com/public?command=returnTicker`
     window.fetch(etherUrl)
