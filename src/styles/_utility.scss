@@ -42,3 +42,10 @@ $base-font-family: sans-serif;
   width: $width;
   height: $height;
 }
+
+@mixin backgroundProps($url, $size) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: $size;
+  background-position: center;
+}

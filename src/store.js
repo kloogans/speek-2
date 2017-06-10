@@ -17,6 +17,11 @@ class Store {
   @observable weather
   @observable temp
   @observable conditions
+  @observable weatherIcon
+  @observable location
+  @observable windDirection
+  @observable windDirectionWord
+  @observable windSpeed
 
   load () {
     db.ref('messages').on('value', (snapshot) => {
@@ -60,10 +65,26 @@ class Store {
     window.fetch(weatherURL)
 .then(r => r.json())
 .then(data => {
-  console.log(data.weather[0].main)
+  console.log(data)
+  this.location = city
   this.temp = data.main.temp
-  this.conditions = data.weather[0].main
+  this.conditions = data.weather[0].description
+  this.weatherIcon = data.weather[0].icon
+  this.windDirection = data.wind.deg
+  this.windSpeed = data.wind.speed
+  this.toTextualDescription(this.windDirection)
 })
+  }
+
+  toTextualDescription = (direction) => {
+    if (direction > 337.5) this.windDirectionWord = 'Northerly'
+    if (direction > 292.5) this.windDirectionWord = 'North Westerly'
+    if (direction > 247.5) this.windDirectionWord = 'Westerly'
+    if (direction > 202.5) this.windDirectionWord = 'South Westerly'
+    if (direction > 157.5) this.windDirectionWord = 'Southerly'
+    if (direction > 122.5) this.windDirectionWord = 'South Easterly'
+    if (direction > 67.5) this.windDirectionWord = 'Easterly'
+    if (direction > 22.5) { this.windDirectionWord = 'North Easterly' }
   }
 
   addMessage (text) {

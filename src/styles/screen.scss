@@ -12,6 +12,7 @@ $primaryBlack: #333;
 $darkPurple: #2e294e;
 $yellow: #ffd400;
 $pink: #d90368;
+$red: rgb(218, 115, 112);
 $blue: rgb(91, 180, 245);
 
 html {
@@ -166,10 +167,53 @@ footer {
 
     width: 100%;
     min-height: 50vh;
+    margin: 0.5em 0;
+    padding: 0.5em 0;
+    border-top: 2px solid lighten($primaryBlack, 50%);
+    border-bottom: 2px solid lighten($primaryBlack, 50%);
+
+    h3 {
+      padding: 0;
+      font-size: 1.5em;
+    }
+
+    img {
+      width: 200px;
+    }
 
     .weather__temperture {
-      font-size: 1.5em;
-      color: rgb(218, 115, 112);
+      font-size: 2.3em;
+      color: $red;
+    }
+
+    .weather__wind-direction::after {
+      @include flex(column, center, center);
+
+      padding: 1em;
+      font-size: 1.7em;
+      font-family: FontAwesome;
+      content: '\f060';
+      text-align: center;
+    }
+
+    .weather__conditions {
+      text-transform: uppercase;
+      font-size: 0.8em;
+      color: $primaryBlack;
+    }
+  }
+
+  .weather__wind-speed {
+    font-size: 0.9em;
+    color: $red;
+
+    &--mph {
+      font-size: 0.7em;
+      color: $primaryBlack;
+    }
+
+    img {
+      width: 20px;
     }
   }
 

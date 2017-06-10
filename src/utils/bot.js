@@ -2,9 +2,6 @@ import store from '../store'
 import moment from 'moment'
 import bitcoinPrice from './bitcoin'
 
-const temp = store.temp
-const conditions = store.conditions
-
 const question = [
   'what time is it?',
   'whats up?',
@@ -17,7 +14,7 @@ const question = [
   'litecoin price',
   'help',
   'bitcoin chart',
-  'weather'
+  `weather`
 ]
 
 const answer = [
@@ -45,10 +42,6 @@ const answer = [
   </ul>
 </div>`,
   `<div id="container"></div>`
-]
-
-const weather = [
-  `${temp}&deg;F`
 ]
 
 const whatsUp = [
@@ -121,11 +114,24 @@ const botListener = (message) => {
       setTimeout(() => {
         store.announceUser(`<div class="weather">
         <div class="weather__temperture">
-        ${store.temp}&deg;F
+        ${Math.round(store.temp)}&deg;F
       </div>
+      <img src="images/weather/${store.weatherIcon}.svg" />
       <div class="weather__conditions">
         ${store.conditions}
       </div>
+      <div class="weather___wind">
+      <div class="weather__wind-direction" style="transform: rotate(${store.windDirection}deg)" />
+    </div>
+    ${store.windDirectionWord}
+    <div class="weather__wind-speed">
+      <span>
+        <img src="images/weather/wind.svg" /> ${store.windSpeed}
+      </span>
+      <span class="weather__wind-speed--mph">
+        mph
+      </span>
+    </div>
         `)
       }, 1000)
       break
