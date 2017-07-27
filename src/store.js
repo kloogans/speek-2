@@ -51,16 +51,7 @@ class Store {
   // const currency = Object.keys(data).map((key, i) => data[key])
   // this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
 })
-  // Get Ethereum/Litecoin price
-    const etherUrl = `https://poloniex.com/public?command=returnTicker`
-    window.fetch(etherUrl)
-.then(r => r.json())
-.then(data => {
-  let etherPrice = Number(data.USDT_ETH.last)
-  let ltcPrice = Number(data.USDT_LTC.last)
-  this.etherData = etherPrice.toFixed(2)
-  this.ltcData = ltcPrice.toFixed(2)
-})
+
 // Weather
     const city = 'tampa'
     const weatherURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${WEATHER_API}&units=imperial`
