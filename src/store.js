@@ -22,11 +22,13 @@ class Store {
   @observable windDirection
   @observable windDirectionWord
   @observable windSpeed
+  @observable update
 
   load () {
     db.ref('messages').on('value', (snapshot) => {
       const data = snapshot.val()
       this.messages = data
+      console.log(this.messages)
     })
     // db.ref('announcements').on('value', (snapshot) => {
     //   const data = snapshot.val()
@@ -88,7 +90,7 @@ class Store {
   }
 
   addMessage (text) {
-    db.ref('messages').push().set({ username: this.username, text, time: this.time })
+    db.ref('messages').push().set({ username: this.username, text, time: this.time, update: this.update })
   }
 
   announceUser (text) {

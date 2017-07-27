@@ -8,6 +8,8 @@ import Message from './Message'
 import botListener from '../utils/bot'
 import auth from '../utils/auth'
 import moment from 'frozen-moment'
+const title = document.title
+let count = 0
 
 @observer
 class Chat extends Component {
@@ -20,6 +22,7 @@ class Chat extends Component {
       store.username = store.calledBot ? 'SpeekBot' : store.username
       store.addMessage(message, store.time)
       botListener(message, store.time)
+      this.changeTitle()
     }
     this.refs.message.value = ''
   }
@@ -51,6 +54,20 @@ class Chat extends Component {
     db.ref('messages').remove()
   }
 
+  changeTitle () {
+    count++
+    store.update = count
+    let newTitle = `(${count}) ${title}`
+    document.title = newTitle
+  }
+
+  resetUpdateCount = () => {
+    count = 0
+    store.update = count
+    let newTitle = `${title}`
+    document.title = newTitle
+  }
+
   render () {
     const localUserName = window.localStorage.username
     if (localUserName) {
@@ -64,11 +81,10 @@ class Chat extends Component {
             </button>
             <button onClick={this.logout}>logout</button>
           </div>
-          <div className='mainContainer' ref='chatbox'>
+          <div className='mainContainer' ref='chatbox' onClick={this.resetUpdateCount}>
             <div className='chatTextBox'>
               {_.map(store.messages, ({ username, message, text, time }, key) => {
                 return <div className='chatMessage' key={key}>
-                  {/* <Bot message={message} time={time} /> */}
                   <Message remove={this.delete} username={username} text={text} time={time} />
                 </div>
                 // console.log(bot + message)
