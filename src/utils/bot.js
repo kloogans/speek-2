@@ -6,7 +6,6 @@ const question = [
   'what time is it?',
   'whats up?',
   'what is the meaning of life?',
-  'fuck you speekbot',
   'whats the bitcoin price',
   'btc',
   'bitcoin price',
@@ -14,7 +13,10 @@ const question = [
   'litecoin price',
   'help',
   'bitcoin chart',
-  `whats the weather`
+  `what's the weather?`,
+  'whats the weather',
+  'whats the weather?',
+  'what\'s the weather?'
 ]
 
 const answer = [

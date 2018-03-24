@@ -30,43 +30,28 @@ class Store {
       this.messages = data
       console.log(this.messages)
     })
-    // db.ref('announcements').on('value', (snapshot) => {
-    //   const data = snapshot.val()
-    //   this.messages = data
-    // })
-    // console.log(this.messages.userMessages)
-    // Get bitcoin price
     const url = `http://api.coindesk.com/v1/bpi/currentprice.json`
     window.fetch(url)
-  .then(r => r.json())
-  .then(data => {
-    const currency = Object.keys(data).map((key, i) => data[key])
-    this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
-  })
-    const historyUrl = `http://api.coindesk.com/v1/bpi/historical/close.json?start=2017-06-01&end=${currentTime}`
-    window.fetch(historyUrl)
-.then(r => r.json())
-.then(data => {
-  console.log(data.bpi)
-  // const currency = Object.keys(data).map((key, i) => data[key])
-  // this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
-})
+    .then(r => r.json())
+    .then(data => {
+      const currency = Object.keys(data).map((key, i) => data[key])
+      this.bitcoinData = currency[3].USD.rate_float.toFixed(2)
+    })
 
 // Weather
     const city = 'tampa'
     const weatherURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${WEATHER_API}&units=imperial`
     window.fetch(weatherURL)
-.then(r => r.json())
-.then(data => {
-  console.log(data)
-  this.location = city
-  this.temp = data.main.temp
-  this.conditions = data.weather[0].description
-  this.weatherIcon = data.weather[0].icon
-  this.windDirection = data.wind.deg
-  this.windSpeed = data.wind.speed
-  this.toTextualDescription(this.windDirection)
-})
+    .then(r => r.json())
+    .then(data => {
+      this.location = city
+      this.temp = data.main.temp
+      this.conditions = data.weather[0].description
+      this.weatherIcon = data.weather[0].icon
+      this.windDirection = data.wind.deg
+      this.windSpeed = data.wind.speed
+      this.toTextualDescription(this.windDirection)
+    })
   }
 
   toTextualDescription = (direction) => {
@@ -81,7 +66,8 @@ class Store {
   }
 
   addMessage (text) {
-    db.ref('messages').push().set({ username: this.username, text, time: this.time, update: this.update })
+    console.log(db.ref('messages'))
+    db.ref('messages').push().set({ username: this.username, text, time: this.time })
   }
 
   announceUser (text) {
